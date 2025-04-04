@@ -1,0 +1,77 @@
+﻿@page "/"
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+
+<PageTitle>Registro Usuario</PageTitle>
+
+<MudItem xs="12">
+    <MudPaper Class="pa-4">
+        <MudForm @ref="form">
+            <MudText>Nombre:</MudText>
+            <MudTextField T="string" @bind-Value="Nombre" Required="true" RequiredError="El nombre es obligatorio" /><br />
+
+            <MudText>Email:</MudText>
+            <MudTextField T="string" @bind-Value="Email" Required="true" RequiredError="El email es obligatorio"
+                          Validation="@(new EmailAddressAttribute() {ErrorMessage = "The email address is invalid"})" /><br />
+
+            <MudText>Contraseña:</MudText>
+            <MudTextField T="string" @bind-Value="Contraseña" Required="true"
+                          RequiredError="La contraseña es obligatoria" @ref="pwField1" InputType="InputType.Password" /><br />
+
+            <MudText>Repite la contraseña:</MudText>
+            <MudTextField T="string" InputType="InputType.Password"
+                          @bind-Value="ConfirmarContraseña"
+                          Validation="@(new Func<string, string>(PasswordMatch))" /><br />
+
+            <div class="d-flex">
+                <MudRadioGroup T="string" @bind-Value="Rol" Label="Selecciona un rol" Required="true" RequiredError="El tipo de cuenta es obligatorio">
+                    <MudRadio Value=@("Administrador")>Administrador</MudRadio>
+                    <MudRadio Value=@("Encargado")>Encargado</MudRadio>
+                </MudRadioGroup>
+            </div>
+
+            <div class="d-flex align-center justify-space-between">
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Registrar</MudButton>
+            </div>
+        </MudForm>
+    </MudPaper>
+</MudItem>
+
+@code {
+    private List<Usuario> users = new();
+    MudForm form;
+    MudTextField<string> pwField1;
+    private string Nombre { get; set; }
+    private string Email { get; set; }
+    private string Contraseña { get; set; }
+    private string ConfirmarContraseña { get; set; }
+    private string Rol { get; set; }
+
+    private string PasswordMatch(string paswd)
+    {
+        if (Contraseña != paswd)
+            return "La contraseña no es la misma";
+        return null;
+    }
+
+    private async Task Enviar()
+    {
+        await form.Validate();
+
+        if (form.IsValid)
+        {
+
+            var newUser = new Usuario(Nombre, Email, Contraseña, Rol);
+            users.Add(newUser);
+
+            Nombre = string.Empty;
+            Email = string.Empty;
+            Contraseña = string.Empty;
+            ConfirmarContraseña = string.Empty;
+            Rol = string.Empty;
+
+
+        }
+
+    }
+}

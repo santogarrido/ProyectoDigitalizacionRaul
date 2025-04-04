@@ -1,0 +1,26 @@
+﻿@page "/RegistroProductos"
+
+<PageTitle>Registro de Productos</PageTitle>
+
+<MudItem xs="12">
+    <MudPaper Class="pa-4">
+        <MudForm>
+            <MudText>Id:</MudText>
+            <MudTextField T="int" Required="true" RequiredError="El Id es obligatorio" /><br />
+
+            <MudText>Nombre:</MudText>
+            <MudTextField T="string" Required="true" RequiredError="El nombre es obligatorio" /><br />
+
+            <MudText>Cantidad:</MudText>
+            <MudTextField T="int" Required="true" RequiredError="El nombre es obligatorio" /><br />
+
+            <div class="d-flex align-center justify-space-between">
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Registrar</MudButton>
+            </div>
+        </MudForm>
+    </MudPaper>
+</MudItem>
+
+@code {
+
+}

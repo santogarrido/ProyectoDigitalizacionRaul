@@ -1,0 +1,27 @@
+﻿@page "/ListaUsuarios"
+@attribute [StreamRendering]
+
+<PageTitle>ListaUsuarios</PageTitle>
+
+<h1>Lista Usuarios</h1>
+
+<MudTable Items="usuarios" Dense="true">
+    <HeaderContent>
+        <MudTh>Nombre</MudTh>
+        <MudTh>Email</MudTh>
+        <MudTh>Contraseña</MudTh>
+        <MudTh>Rol</MudTh>
+    </HeaderContent>
+    <RowTemplate Context="usuarios">
+        <MudTd>@usuarios.Nombre</MudTd>
+        <MudTd>@usuarios.Email</MudTd>
+        <MudTd>@usuarios.Contraseña</MudTd>
+        <MudTd>@usuarios.Rol</MudTd>
+    </RowTemplate>
+</MudTable>
+
+
+@code {
+    private List<Usuario> usuarios = new();
+
+}
